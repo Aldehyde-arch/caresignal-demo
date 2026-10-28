@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareSignal | Educational Health Support Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">✦</span><span>CareSignal</span></div>
+    <p class="subtitle">EDUCATIONAL PROTOTYPE</p>
+    <nav aria-label="Main navigation">
+      <button class="nav active" data-view="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav" data-view="patients">♙ <span>Patients</span></button>
+      <button class="nav" data-view="assessment">⌁ <span>Risk assessment</span></button>
+      <button class="nav" data-view="alerts">⚑ <span>Alerts</span><b id="alertCount">0</b></button>
+      <button class="nav" data-view="reports">▥ <span>Reports</span></button>
+    </nav>
+    <div class="sidebar-note">Synthetic demo data only.<br>Not for clinical use.</div>
+  </aside>
+  <main>
+    <header><div><p class="eyebrow">INTELLIGENT HEALTHCARE DECISION SUPPORT</p><h1 id="pageTitle">Care team overview</h1></div><button class="secondary" id="resetDemo">↻ Reset demo</button></header>
+    <section class="safety"><strong>Educational prototype — not a medical device.</strong> This app uses synthetic records and a transparent demonstration rule. It does not diagnose conditions, prescribe care, or replace a qualified clinician or emergency services.</section>
+
+    <section class="view" id="dashboard">
+      <div class="cards">
+        <article class="metric"><span>ACTIVE SYNTHETIC PATIENTS</span><strong id="patientMetric">0</strong><small>local demo registry</small></article>
+        <article class="metric"><span>PRIORITY REVIEW</span><strong id="priorityMetric">0</strong><small>illustrative high signals</small></article>
+        <article class="metric"><span>OPEN ALERTS</span><strong id="openMetric">0</strong><small>awaiting acknowledgement</small></article>
+        <article class="metric"><span>AVERAGE DEMO SCORE</span><strong id="avgMetric">0</strong><small>out of 100</small></article>
+      </div>
+      <div class="grid two">
+        <article class="panel"><div class="panel-heading"><div><p class="eyebrow">MONITORING</p><h2>Priority queue</h2></div><button class="link-btn" data-goto="alerts">View alerts →</button></div><div id="priorityQueue"></div></article>
+        <article class="panel"><div class="panel-heading"><div><p class="eyebrow">WORKFLOW</p><h2>Five-module MVP</h2></div></div><ol class="workflow"><li><b>1</b><span><strong>Patient data</strong><small>Store and review synthetic records</small></span></li><li><b>2</b><span><strong>Risk signal</strong><small>Explainable demo scoring</small></span></li><li><b>3</b><span><strong>Support prompts</strong><small>Non-prescriptive review cues</small></span></li><li><b>4</b><span><strong>Alerts</strong><small>Prioritize follow-up review</small></span></li><li><b>5</b><span><strong>Reports</strong><small>Aggregate demo analytics</small></span></li></ol></article>
+      </div>
+    </section>
+
+    <section class="view hidden" id="patients">
+      <div class="panel-heading action-heading"><div><p class="eyebrow">MODULE 1</p><h2>Patient data management</h2><p>These are fictional records for classroom demonstration.</p></div><button class="primary" id="newPatient">+ Add synthetic patient</button></div>
+      <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Patient</th><th>Age</th><th>Clinical inputs</th><th>Demo signal</th><th>Last updated</th></tr></thead><tbody id="patientsTable"></tbody></table></div></article>
+    </section>
+
+    <section class="view hidden" id="assessment">
+      <div class="panel-heading"><div><p class="eyebrow">MODULES 2 & 3</p><h2>Risk prediction and recommendation engine</h2><p>Creates an illustrative risk signal from selected inputs. It is not a medical diagnosis.</p></div></div>
+      <div class="grid assessment-grid"><form class="panel form" id="riskForm"><h3>Run educational assessment</h3><label>Patient <select id="assessmentPatient" required></select></label><div class="field-grid"><label>Age <input id="age" type="number" min="0" max="120" required></label><label>Body mass index <input id="bmi" type="number" min="10" max="70" step="0.1" required></label><label>Systolic BP (mmHg) <input id="sbp" type="number" min="50" max="260" required></label><label>Glucose (mg/dL) <input id="glucose" type="number" min="30" max="600" required></label></div><label class="check"><input id="smoker" type="checkbox"> Tobacco use recorded</label><label class="check"><input id="history" type="checkbox"> Relevant chronic-history flag recorded</label><button class="primary" type="submit">Generate demo signal</button></form><article class="panel result" id="assessmentResult"><p class="eyebrow">RESULT</p><h3>Waiting for input</h3><p>Choose a synthetic patient and run the educational scoring demonstration.</p></article></div>
+      <article class="panel method"><h3>How the demonstration score works</h3><p>Each supplied factor contributes a fixed, visible number of points (age, BMI, blood pressure, glucose, tobacco-use flag and history flag). Score bands only prioritize a hypothetical review queue; they do not identify a disease or establish urgency.</p></article>
+    </section>
+
+    <section class="view hidden" id="alerts">
+      <div class="panel-heading"><div><p class="eyebrow">MODULE 4</p><h2>Alerts and monitoring</h2><p>Illustrative alerts are generated from the demo score and must be reviewed by a human.</p></div></div><div id="alertsList" class="alert-list"></div>
+    </section>
+
+    <section class="view hidden" id="reports">
+      <div class="panel-heading action-heading"><div><p class="eyebrow">MODULE 5</p><h2>Reports and analytics</h2><p>Aggregate view of the synthetic demonstration dataset.</p></div><button class="primary" id="downloadCsv">⇩ Download demo CSV</button></div>
+      <div class="grid two"><article class="panel"><h3>Signal distribution</h3><div id="barChart" class="bars"></div></article><article class="panel"><h3>Review notes</h3><ul class="notes"><li>All patient identities and measurements are fictional.</li><li>Demo score logic is intentionally transparent for review.</li><li>Use a validated model, governance and clinical oversight before any real-world use.</li></ul></article></div>
+    </section>
+  </main>
+  <dialog id="patientDialog"><form method="dialog" id="patientForm"><div class="dialog-head"><h2>Add a synthetic patient</h2><button value="cancel" class="icon-btn" aria-label="Close">×</button></div><p>Do not enter real patient information.</p><label>Display name <input id="nameInput" required placeholder="e.g. Demo Patient 06"></label><div class="field-grid"><label>Age <input id="newAge" type="number" min="0" max="120" required></label><label>BMI <input id="newBmi" type="number" min="10" max="70" step="0.1" required></label><label>Systolic BP <input id="newSbp" type="number" min="50" max="260" required></label><label>Glucose <input id="newGlucose" type="number" min="30" max="600" required></label></div><label class="check"><input id="newSmoker" type="checkbox"> Tobacco-use flag</label><label class="check"><input id="newHistory" type="checkbox"> Chronic-history flag</label><button class="primary" value="default">Save synthetic record</button></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
